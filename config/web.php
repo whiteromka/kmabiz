@@ -1,17 +1,25 @@
 <?php
 
+use yii\queue\file\Queue;
+use yii\queue\LogBehavior;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'queue'],
+    'language' => 'ru',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'queue' => [
+            'class' => Queue::class,
+            'as log' => LogBehavior::class,
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'To1t0LAKKm9mYV6RG9W7Ptc98R6guegj',
